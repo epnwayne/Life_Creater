@@ -6,38 +6,45 @@ from fsm import TocMachine
 VERIFY_TOKEN = "1234567890987654321"
 machine = TocMachine(
     states=[
-        'user',
-        'state1',
-        'state2',
-        'state3'
+        'initial',
+        'country',
+        'background',
+        'event',
+        'ending'
     ],
     transitions=[
         {
-            'trigger': 'advance',
-            'source': 'user',
-            'dest': 'state1',
-            'conditions': 'is_going_to_state1'
+            'trigger': 'first',
+            'source': 'initial',
+            'dest': 'country',
+            'conditions': 'set_country'
         },
         {
-            'trigger': 'advance',
-            'source': 'user',
-            'dest': 'state2',
-            'conditions': 'is_going_to_state2'
+            'trigger': 'second',
+            'source': 'country',
+            'dest': 'background',
+            'conditions': 'set_background'
         },
         {
-            'trigger': 'advance',
-            'source': ['state1', 'state2', 'state3'],
-            'dest': 'user',
-            'conditions': 'is_going_to_user'
+            'trigger': 'remake',
+            'source': ['ending', 'initial'],
+            'dest': 'initial',
+            'conditions': 'is_going_to_initial'
         },
         {
-            'trigger': 'advance',
-            'source': ['state1', 'state2'],
-            'dest': 'state3',
-            'conditions': 'is_going_to_state3'
+            'trigger': 'third',
+            'source': 'background',
+            'dest': 'event',
+            'conditions': 'set_event'
+        },
+        {
+            'trigger':'end',
+            'source':'event',
+            'dest':'ending',
+            'conditions':'set_ending'
         }
     ],
-    initial='user',
+    initial='initial',
     auto_transitions=False,
     show_conditions=True,
 )
@@ -56,7 +63,7 @@ def setup_webhook():
     else:
         abort(403)
 
-@route("/", method="POST")
+@route("/webhook", method="POST")
 def webhook_handler():
     body = request.json
     print('\nFSM STATE: ' + machine.state)
@@ -65,7 +72,19 @@ def webhook_handler():
 
     if body['object'] == "page":
         event = body['entry'][0]['messaging'][0]
-        machine.advance(event)
+        print('current state:')
+        print(machine.state)
+        
+        if machine.state == 'initial':
+            machine.first(event)
+        elif machine.state == 'country':
+            machine.second(event)
+        elif machine.state == 'background':
+            machine.third(event)
+        elif machine.state == 'event':
+            machine.end(event)
+        elif machine.state == 'ending':
+            machine.remake(event)      
         return 'OK'
 
 #        if text == "go to state1":
