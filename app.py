@@ -1,5 +1,4 @@
 from bottle import route, run, request, abort, static_file
-
 from fsm import TocMachine
 
 
@@ -10,9 +9,21 @@ machine = TocMachine(
         'country',
         'background',
         'event',
-        'ending'
+        'ending',
+        'hello'
     ],
     transitions=[
+        {
+            'trigger': 'hi',
+            'source': 'initial',
+            'dest': 'hello',
+            #'conditions': 'say_hello'
+        },
+        {
+            'trigger': 'go_home',
+            'source': 'hello',
+            'dest': 'initial'
+        },
         {
             'trigger': 'first',
             'source': 'initial',
@@ -74,7 +85,10 @@ def webhook_handler():
         event = body['entry'][0]['messaging'][0]
         print('current state:')
         print(machine.state)
-        
+        if event.get('message') and event['message'].get('text'):
+            text = event['message']['text']
+            if text == '嗨' or text == 'hi' or text == 'hello':
+                machine.hi(event)
         if machine.state == 'initial':
             machine.first(event)
         elif machine.state == 'country':

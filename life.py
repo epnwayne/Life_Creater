@@ -1,4 +1,4 @@
-from life_data import Country, Background, Event, Work, Ending
+from life_data import Country, Background, Event, Ending
 import random
 
 #country = random.choice(list(Life.keys()))
