@@ -20,11 +20,11 @@ machine = TocMachine(
             'trigger': 'author',
             'source': 'initial',
             'dest': 'author_info'
-        }
+        },
         {
             'trigger': 'hi',
             'source': 'initial',
-            'dest': 'hello',
+            'dest': 'hello'
         },
         {
             'trigger': 'go_home',
