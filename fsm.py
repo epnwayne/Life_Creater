@@ -66,6 +66,7 @@ class TocMachine(GraphMachine):
             text = event['postback']['payload']
             if int(text):
                 e = int(text)
+                print("int get!")
                 #if e < len(Ending[self.life_data[0]][self.life_data[1]]):
                 self.life_data.append(e)
                 return True
