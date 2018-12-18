@@ -1,66 +1,30 @@
-# 人生首抽機(chatbot)
--   參考以下資料
----
 # TOC Project 2019
 
-Template Code for TOC Project 2019
-
-A Facebook messenger bot based on a finite state machine
-
-More details in the [Slides](https://hackmd.io/p/SkpBR-Yam#/) and [FAQ](https://hackmd.io/s/B1Xw7E8kN)
-
-## Setup
-
-### Prerequisite
-* Python 3
-* Facebook Page and App
-* HTTPS Server
-
-#### Install Dependency
-```sh
-pip3 install -r requirements.txt
-```
-
-* pygraphviz (For visualizing Finite State Machine)
-    * [Setup pygraphviz on Ubuntu](http://www.jianshu.com/p/a3da7ecc5303)
-
-#### Secret Data
-
-`VERIFY_TOKEN` and `ACCESS_TOKEN` **MUST** be set to proper values.
-Otherwise, you might not be able to run your code.
-
-#### Run Locally
-You can either setup https server or using `ngrok` as a proxy.
-
-**`ngrok` would be used in the following instruction**
-
-```sh
-./ngrok http 5000
-```
-
-After that, `ngrok` would generate a https URL.
-
-#### Run the sever
-
-```sh
-python3 app.py
-```
-
-## Finite State Machine
+## 人生首抽機(chatbot)
+* 不滿意你的人生嗎？那就來刷刷首抽吧～
+### 簡述
+* 人生不能重來，但人生首抽機可以
+* 步驟：抽國家->抽家庭背景->情境選擇->結局
+* 不滿意怎麼辦>_<？
+	-	remake就行囉
+### Finite State Machine
 ![fsm](./img/show-fsm.png)
 
-## Usage
-The initial state is set to `user`.
+### 操作說明
 
-Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
+* 起始點（initial）
+	-	輸入start（開始），hi（打招呼），author（看作者資訊）
+* 根據提示按下按鈕（country, background），抽國家、抽家庭背景
+* 情境選擇（event）：按下你決定的方向
+* 結局（ending）：每個結局都不同
+	-	輸入 remake，可以再來一次
+### 開發環境
+* python3.6.7
 
-* user
-	* Input: "go to state1"
-		* Reply: "I'm entering state1"
-
-	* Input: "go to state2"
-		* Reply: "I'm entering state2"
+### deploy
+* 使用Heroku
+	-	https://dashboard.heroku.com/apps
 
 
-## Reference
+### Reference
 [TOC-Project-2017](https://github.com/Lee-W/TOC-Project-2017) ❤️ [@Lee-W](https://github.com/Lee-W)
