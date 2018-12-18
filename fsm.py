@@ -3,7 +3,7 @@ from transitions.extensions import GraphMachine
 from utils import send_text_message, make_message, send_image_url, send_button_message
 from life import country, background
 from life_data import Country, Background, Event, Ending
-from material import life_remake, people_img
+from material import life_remake, people_img, end_img
 import time
 
 
@@ -74,7 +74,7 @@ class TocMachine(GraphMachine):
             else:
                 return False
         else:
-            send_text_message(sender_id, "Sorry，目前只能接收文字")
+            send_text_message(sender_id, "Sorry，請按按鈕")
             return False        
     
     def on_enter_hello(self, event):
@@ -176,6 +176,7 @@ class TocMachine(GraphMachine):
 
     def on_enter_ending(self, event):
         sender_id = event['sender']['id']
+        send_image_url(sender_id, end_img[self.life_data[0]][self.life_data[1]][self.life_data[2]])
         send_text_message(sender_id, Ending[self.life_data[0]][self.life_data[1]][self.life_data[2]]) 
         #send_text_message(sender_id, '想重刷的話就remake喔')
 
