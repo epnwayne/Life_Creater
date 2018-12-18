@@ -24,9 +24,9 @@ class TocMachine(GraphMachine):
                 return True
             else:
                 send_image_url(sender_id, life_remake[0])
-                send_text_message(sender_id, "請輸入 start 開始你的人生>_<")
+                send_text_message(sender_id, "請輸入 start 開始你的人生或說 嗨 或 author")
         else:
-            send_text_message(sender_id, "Sorry，只能接收文字，可以說嗨跟我打招呼")
+            send_text_message(sender_id, "Sorry，只能接收文字，可以說 start 嗨 author")
             return False
          
     def set_background(self, event):
