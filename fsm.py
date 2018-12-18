@@ -190,7 +190,7 @@ class TocMachine(GraphMachine):
         self.life_data.clear()
         self.my_life.clear()
         sender_id = event['sender']['id']
-        send_text_message(sender_id, "想重刷是吧？那就輸入 start 重刷你的人生首抽")
+        #send_text_message(sender_id, "輸入 start 刷你的人生首抽喔")
 
     def on_enter_ending(self, event):
         sender_id = event['sender']['id']
