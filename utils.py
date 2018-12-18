@@ -3,7 +3,7 @@ import os
 from life import country
 
 GRAPH_URL = "https://graph.facebook.com/v2.6"
-ACCESS_TOKEN = os.environ['FB_TOKEN']
+ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 
 
 #server send to request
