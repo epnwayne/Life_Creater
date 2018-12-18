@@ -24,9 +24,9 @@ class TocMachine(GraphMachine):
                 return True
             else:
                 send_image_url(sender_id, life_remake[0])
-                send_text_message(sender_id, "請輸入 start 開始你的人生或說 嗨 或 author")
+                send_text_message(sender_id, "請輸入 start 開始你的人生或是跟我打招呼\n嗨\n或是看看作者資訊\nauthor")
         else:
-            send_text_message(sender_id, "Sorry，只能接收文字，可以說 start 嗨 author")
+            send_text_message(sender_id, "Sorry，只能接收文字，可以輸入\nstart\n嗨\nauthor")
             return False
          
     def set_background(self, event):
@@ -64,17 +64,9 @@ class TocMachine(GraphMachine):
         sender_id = event['sender']['id']
         if event.get('postback'):
             text = event['postback']['payload']
-            print('int(text) = ')
-            print(int(text))
-            if int(text):
-                e = int(text)
-                #if e < len(Ending[self.life_data[0]][self.life_data[1]]):
-                self.life_data.append(e)
-                return True
-                #else:
-                #    return False
-            else:
-                return False
+            e = int(text)
+            self.life_data.append(e)
+            return True
         else:
             send_text_message(sender_id, "Sorry，請按按鈕")
             return False        

@@ -2,9 +2,9 @@ import os
 from bottle import route, run, request, abort, static_file
 from fsm import TocMachine
 
-PORT = os.environ['PORT']
-VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
-
+#PORT = os.environ['PORT']
+#VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
+VERIFY_TOKEN = "123"
 machine = TocMachine(
     states=[
         'initial',
@@ -130,4 +130,4 @@ def show_fsm():
 if __name__ == "__main__":
     body = request.json
     print('\nFSM STATE: ' + machine.state)
-    run(host="0.0.0.0", port=PORT, debug=True, reloader=True)
+    run(host="localhost", port=5000, debug=True, reloader=True)
