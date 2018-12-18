@@ -12,18 +12,23 @@ machine = TocMachine(
         'background',
         'event',
         'ending',
-        'hello'
+        'hello',
+        'author_info'
     ],
     transitions=[
+        {
+            'trigger': 'author',
+            'source': 'initial',
+            'dest': 'author_info'
+        }
         {
             'trigger': 'hi',
             'source': 'initial',
             'dest': 'hello',
-            #'conditions': 'say_hello'
         },
         {
             'trigger': 'go_home',
-            'source': 'hello',
+            'source': ['hello', 'author_info'],
             'dest': 'initial'
         },
         {

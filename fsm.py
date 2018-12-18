@@ -28,19 +28,7 @@ class TocMachine(GraphMachine):
         else:
             send_text_message(sender_id, "Sorry，只能接收文字，可以說嗨跟我打招呼")
             return False
-   
-    #def say_hello(self, event):
-    #    sender_id = event['sender']['id']
-    #    if event['message'].get("text"):
-    #        text = event['message']['text']
-    #        if text == '嗨' or text == 'hi' or text == 'hello':
-    #            return True
-    #        else:
-    #            return False    
-    #    else:
-    #        return False        
-
-    #go to background state
+         
     def set_background(self, event):
         sender_id = event['sender']['id']
         if event.get('postback'):
@@ -110,9 +98,6 @@ class TocMachine(GraphMachine):
         #send_text_message(sender_id, "輸入 go 看看你生在什麼家庭吧")
         send_button_message(sender_id, '按下go，進入下一階段', buttons)
 
-#    def on_exit_state1(self):
-#        print('Leaving state1')
-
     def on_enter_background(self, event):
         print("your background is set")        
         sender_id = event['sender']['id']
@@ -127,9 +112,6 @@ class TocMachine(GraphMachine):
         send_text_message(sender_id, "家庭背景：\n" + self.my_life[1])
         send_image_url(sender_id, people_img[Background[self.life_data[0]].index(b)])
         send_button_message(sender_id, '按下go，進入下一階段', buttons)
-
-#    def on_exit_state2(self):
-#        print('Leaving state2')
 
     def on_enter_event(self, event):
         print("event occur!")
@@ -197,5 +179,7 @@ class TocMachine(GraphMachine):
         send_text_message(sender_id, Ending[self.life_data[0]][self.life_data[1]][self.life_data[2]]) 
         #send_text_message(sender_id, '想重刷的話就remake喔')
 
-#    def on_exit_user(self):
-#        print('Leaving user')
+    def on_enter_author_info(self, event):
+        sender_id = event['sender']['id']
+        send_text_message(sender_id, "作者：Wayne\n信箱：ht920055@gmail.com")
+        self.go_home(event)
