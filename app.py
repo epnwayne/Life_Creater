@@ -96,6 +96,8 @@ def webhook_handler():
             text = event['message']['text']
             if text == '嗨' or text == 'hi' or text == 'hello':
                 machine.hi(event)
+            if text == '作者' or text == 'author'
+                machine.author(event)
         if machine.state == 'initial':
             machine.first(event)
         elif machine.state == 'country':
