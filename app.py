@@ -7,6 +7,7 @@ VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 #VERIFY_TOKEN = "123"
 machine = TocMachine(
     states=[
+        'help',
         'initial',
         'country',
         'background',
@@ -16,6 +17,11 @@ machine = TocMachine(
         'author_info'
     ],
     transitions=[
+        {
+            'trigger' : 'help',
+            'source' : 'initial',
+            'dest': 'help'
+        }
         {
             'trigger': 'author',
             'source': 'initial',
@@ -28,7 +34,7 @@ machine = TocMachine(
         },
         {
             'trigger': 'go_home',
-            'source': ['hello', 'author_info'],
+            'source': ['help', 'hello', 'author_info'],
             'dest': 'initial'
         },
         {
@@ -98,6 +104,8 @@ def webhook_handler():
                 machine.hi(event)
             if text == '作者' or text == 'author':
                 machine.author(event)
+            if text == '/help'
+                machine.help(event)
         if machine.state == 'initial':
             machine.first(event)
         elif machine.state == 'country':

@@ -76,6 +76,11 @@ class TocMachine(GraphMachine):
         send_text_message(sender_id, "你好阿，旅行者")
         self.go_home(event)
 
+    def on_enter_help(self, event):
+        sender_id = event['sender']['id']
+        send_text_message(sender_id, "help")
+        self.go_home(event)
+
 
     def on_enter_country(self, event):
         #print("your country is set")
